@@ -4,7 +4,7 @@ $ sudo apt install virt-manager virtinst libvirt-daemon-system j2cli git genisoi
 $ sudo systemctl enable libvirtd
 ```
 
-`/etc/nsswitch.conf`で、`hosts:`で始まる行に、"libvirt"を追加する
+`/etc/nsswitch.conf`で、`hosts:`で始まる行に、"libvirt_guest"を追加する
 
 ```
 # cat >> /etc/libvirt/libvirtd.conf << END
