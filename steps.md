@@ -25,7 +25,6 @@ https://sumit-ghosh.com/posts/create-vm-using-libvirt-cloud-images-cloud-init/ ã
 
 ```
 $ wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
-$ qemu-img create -b jammy-server-cloudimg-amd64.img -f qcow2 -F qcow2 jammy-image.img 10G
 ```
 
 ```
@@ -36,7 +35,8 @@ $ mkdir ~/.ssh
 $ ssh-keygen -f ~/.ssh/client_key -P ""
 $ mkdir ~/out
 $ export ssh_key="`cat ~/.ssh/client_key.pub`" 
-$ for dir in {controller,worker1,worker2}; do \
+$ for dir in {controller1,controller2,worker1,worker2}; do \
+    qemu-img create -b ~/jammy-server-cloudimg-amd64.img -f qcow2 -F qcow2 ~/jammy-image-$dir.img 10G; \
     mkdir ~/out/$dir; \
     j2 -e ""  ~/git/k0s-test-env/user-data.j2 > ~/out/$dir/user-data; \
     name="$dir" j2 -e ""  ~/git/k0s-test-env/meta-data.j2 > ~/out/$dir/meta-data; \
@@ -51,6 +51,8 @@ $ cat >> ~/.ssh/config << END
 Host controller1 controller2 worker1 worker2
     User user
     IdentityFile ~/.ssh/client_key
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
 
 END
 ```
