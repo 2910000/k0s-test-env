@@ -56,3 +56,11 @@ Host controller1 controller2 worker1 worker2
 
 END
 ```
+
+https://docs.k0sproject.io/stable/examples/ansible-playbook/
+
+```
+git clone https://github.com/movd/k0s-ansible.git
+cd k0s-ansible
+```
+
